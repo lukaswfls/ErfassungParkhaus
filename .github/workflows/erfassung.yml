@@ -1,0 +1,32 @@
+name: Erfassung Parkhaus Maastrichter Strasse
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: erfassung
+  cancel-in-progress: false
+
+jobs:
+  erfassen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Messwert abrufen
+        run: python erfassung.py
+      - name: Messwert speichern
+        run: |
+          git config user.name "erfassung-bot"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add daten/belegung_maastrichter.csv
+          git commit -m "Messung $(date -u +%Y-%m-%dT%H:%MZ)" || exit 0
+          git pull --rebase
+          git push
