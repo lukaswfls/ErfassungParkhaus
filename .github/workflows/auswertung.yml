@@ -1,0 +1,26 @@
+name: Auswertung
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auswerten:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pandas matplotlib openpyxl
+      - run: python auswertung.py
+      - name: Ergebnis speichern
+        run: |
+          git config user.name "erfassung-bot"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add auswertung
+          git commit -m "Auswertung $(date -u +%Y-%m-%d)" || exit 0
+          git pull --rebase
+          git push
