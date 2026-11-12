@@ -405,3 +405,4 @@ abruf_zeit,stand_quelle,frei,tendenz,quelle,status
 2026-11-12 03:49,2026-11-12 03:38,487,gleichbleibend,koeln.de,ok
 2026-11-12 04:47,2026-11-12 04:38,487,gleichbleibend,koeln.de,ok
 2026-11-12 05:52,,,,,fehler: aus_json: Stand veraltet (2024-03-18 09:44) | aus_html: <urlopen error [Errno -3] Temporary failure in name resolution>
+2026-11-12 06:54,2026-11-12 06:38,487,gleichbleibend,koeln.de,ok
